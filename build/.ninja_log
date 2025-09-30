@@ -1,5 +1,0 @@
-# ninja log v5
-10	50	1759256825582235786	src/CMakeFiles/TradingEngine.dir/lib.cpp.o	20b181031ae87fc3
-12	63	1759256825592236225	apps/cli/CMakeFiles/trading_simulator_cli.dir/main.cpp.o	2472c60797ff7989
-50	81	1759256825614237190	src/libTradingEngine.a	31d30c9e739f0bd3
-9	78	1759256922210512365	apps/cli/trading_simulator_cli	9179d3ea12115786
