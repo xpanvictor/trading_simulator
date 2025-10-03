@@ -1,18 +1,13 @@
 
 #include <iostream>
-#include "tradeapp/engine/matchengine.hpp"
-#include "tradeapp/model/order.hpp"
-#include "tradeapp/model/enums.hpp"
+#include "tradeapp/engine/logger.hpp"
+#include "tradeapp/model/events.hpp"
 
 int main()
 {
-    // Test your TradingEngine library
     std::cout << "Trading Simulator CLI Started!" << std::endl;
-
-    // Example usage:
-    // MatchEngine engine;
-    // Order order = engine.placeOrder(EOrderType::BUY, 123, 100, 50);
-    // std::cout << "Created order with ID: " << order.id << std::endl;
-
+    // testing logger
+    Logger lg = Logger(std::cout);
+    lg.log("just a test");
     return 0;
 }
