@@ -1,4 +1,5 @@
 #include <string>
+#include <ostream>
 #include <enums.hpp>
 
 class Order
@@ -8,10 +9,13 @@ private:
     long quantity;
 
 public:
-    const int id;
-    const std::string traderId;
+    const long id;
+    long traderId;
     const EOrderType orderType;
-    Order(int id, std::string traderId, long price, long quantity, EOrderType ot);
+    Order(long id, long traderId, long price, long quantity, EOrderType ot);
     long getPrice();
     long getQuantity();
+
+    std::string toString() const &;
+    friend std::ostream &operator<<(std::ostream &os, const Order &order);
 };
