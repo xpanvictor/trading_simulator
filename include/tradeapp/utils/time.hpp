@@ -15,11 +15,11 @@ namespace tradeapp
         return *localtime(&now);
     }
 
-    string formatTime(tm rawTime)
+    string formatTime(tm *rawTime)
     {
         // should separate this char->string conversion
         ostringstream oss;
-        oss << put_time(&rawTime, "%Y-%m-%d %H:%M:%S");
+        oss << put_time(rawTime, "%Y-%m-%d %H:%M:%S");
         return oss.str();
     }
 };

@@ -1,7 +1,7 @@
 #pragma once
 
-#include <order.hpp>
-#include <trade.hpp>
+#include "tradeapp/model/order.hpp"
+#include "tradeapp/model/trade.hpp"
 #include <vector>
 #include <optional>
 #include <functional>

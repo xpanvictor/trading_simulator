@@ -1,5 +1,7 @@
+#pragma once
+
 #include <string>
-#include "order.hpp"
+#include "tradeapp/model/order.hpp"
 
 namespace tradeapp
 {

@@ -1,5 +1,5 @@
 # all implementation files
-file(GLOB SOURCE_FILES "*.cpp")
+file(GLOB_RECURSE SOURCE_FILES "*.cpp")
 
 # link_libraries()
 add_library(

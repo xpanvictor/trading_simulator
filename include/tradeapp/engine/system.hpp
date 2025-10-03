@@ -1,5 +1,7 @@
-#include "trade.hpp"
-#include "order.hpp"
+#pragma once
+
+#include "tradeapp/model/trade.hpp"
+#include "tradeapp/model/order.hpp"
 
 namespace tradeappcore
 {

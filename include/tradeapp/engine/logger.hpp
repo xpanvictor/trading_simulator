@@ -1,7 +1,9 @@
+#pragma once
+
 #include <ostream>
 #include <ctime>
 #include <memory>
-#include "events.hpp"
+#include "tradeapp/model/events.hpp"
 
 class Logger
 {

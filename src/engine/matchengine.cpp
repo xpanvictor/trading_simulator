@@ -1,5 +1,5 @@
-#include "matchengine.hpp"
-#include "system.hpp"
+#include "tradeapp/engine/matchengine.hpp"
+#include "tradeapp/engine/system.hpp"
 using namespace std;
 
 MatchEngine::MatchEngine() : orderbook{make_unique<OrderBook>()} {}
@@ -33,4 +33,6 @@ Order MatchEngine::placeOrder(
     }
     tradeapp::OrderCreatedEvent orderCreatedEv(userOrder);
     logger->logEvent(orderCreatedEv);
+
+    return userOrder; // Add missing return statement
 }

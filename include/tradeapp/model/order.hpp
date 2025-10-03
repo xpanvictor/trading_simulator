@@ -1,6 +1,8 @@
+#pragma once
+
 #include <string>
 #include <ostream>
-#include <enums.hpp>
+#include "tradeapp/model/enums.hpp"
 
 class Order
 {
