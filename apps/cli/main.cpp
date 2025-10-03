@@ -14,5 +14,13 @@ int main()
         EOrderType::BUY,
         long{1},
         long{1}, long{1});
+    Order od1 = eg.placeOrder(
+        EOrderType::BUY,
+        long{1},
+        long{1}, long{1});
+    Order od3 = eg.placeOrder(
+        EOrderType::BUY,
+        long{1},
+        long{1}, long{1});
     return 0;
 }

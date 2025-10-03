@@ -17,24 +17,24 @@ Order MatchEngine::placeOrder(
     long quantity,
     long price)
 {
-    long orderNewCounter = 1;
+    long orderNewCounter = orderbook->incrementOrderCounter();
     Order userOrder{orderNewCounter, userId, price, quantity, ot};
     // include order
-    // orderbook->addOrder(userOrder);
+    orderbook->addOrder(userOrder);
+    logger.logEvent(tradeapp::OrderCreatedEvent(userOrder));
 
-    // auto matchedOrder = orderbook->findMatch(userOrder.id);
-    // if (auto match = orderbook->findMatch(userOrder.id))
-    // {
-    //     Order &matchedOrder = match->get();
-    //     // create trade
-    //     long tradeNewCounter = orderbook->incrementTradeCounter();
-    //     Trade generatedTrade = tradeappcore::createTrade(tradeNewCounter, userOrder, matchedOrder);
-    //     orderbook->makeTrade(generatedTrade);
-    //     // remove orders
-    //     orderbook->removeOrders({userOrder.id, matchedOrder.id});
-    //     // pass to persistence
-    // }
-    tradeapp::OrderCreatedEvent orderCreatedEv(userOrder);
-    logger.logEvent(orderCreatedEv);
+    auto matchedOrder = orderbook->findMatch(userOrder.getId());
+    if (auto match = orderbook->findMatch(userOrder.getId()))
+    {
+        Order &matchedOrder = match->get();
+        // create trade
+        long tradeNewCounter = orderbook->incrementTradeCounter();
+        TradeCreationRemnant generatedTrade = tradeappcore::createTrade(tradeNewCounter, userOrder, matchedOrder);
+        orderbook->makeTrade(generatedTrade.trade);
+        logger.logEvent(tradeapp::TradeCreatedEvent(generatedTrade.trade));
+        // remove orders
+        orderbook->popOrders();
+        // pass to persistence
+    }
     return userOrder;
 }

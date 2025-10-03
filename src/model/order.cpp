@@ -9,7 +9,7 @@ constexpr long MAX_ORDER_QUANTITY = std::numeric_limits<long>::max();
 
 Order::Order(
     long id, long traderId, long price, long quantity, EOrderType ot)
-    : id{id}, traderId{traderId}, price{price}, quantity{quantity}, orderType{ot}
+    : id{id}, timestamp{tradeapp::fetchLocalTime().tm_sec}, traderId{traderId}, price{price}, quantity{quantity}, orderType{ot}
 {
     if (quantity < 0 || quantity > MAX_ORDER_QUANTITY)
     {
@@ -21,8 +21,8 @@ Order::Order(
     }
 }
 
-long Order::getPrice() { return price; }
-long Order::getQuantity() { return quantity; }
+long Order::getPrice() const { return price; }
+long Order::getQuantity() const { return quantity; }
 
 bool Order::operator==(const Order &secondOrder)
 {

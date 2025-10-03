@@ -1,4 +1,4 @@
-
+#pragma once
 #include <ctime>
 #include <chrono>
 #include <iomanip>
@@ -8,9 +8,13 @@ using namespace std;
 
 namespace tradeapp
 {
+    time_t fetchCurrTime()
+    {
+        return time(0);
+    }
     tm fetchLocalTime()
     {
-        time_t now = time(0);
+        time_t now = fetchCurrTime();
         return *localtime(&now);
     }
 
