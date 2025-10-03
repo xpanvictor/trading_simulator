@@ -26,25 +26,27 @@ private:
     // todo: use LRU cache
     std::vector<Trade> recentTrades;
 
+    std::optional<std::reference_wrapper<std::vector<Order>::iterator>> findOrder(std::vector<Order> &storage, const Order &order);
+    void removeOrder(std::vector<Order> &storage, const Order &order);
+
     // configurations
-    OrderBookConfigSnapshot generateSnapshot();
+    // OrderBookConfigSnapshot generateSnapshot();
 
 public:
-    OrderBook();
-    OrderBook(OrderBookConfigSnapshot);
+    OrderBook() = default;
+    // OrderBook(OrderBookConfigSnapshot);
 
     // Order management
     long incrementOrderCounter();
     void addOrder(const Order &order);
     // throws if no match
     std::optional<std::reference_wrapper<Order>> findMatch(long orderId);
-    void removeOrder(long orderId);
-    void removeOrders(const std::vector<long> &orderIds);
+    void removeOrders(const std::vector<Order> &orders);
 
     // trade system
     Trade makeTrade(const Trade &trade);
     long incrementTradeCounter();
 
     // manage snapshots & co
-    ~OrderBook();
+    ~OrderBook() = default;
 };

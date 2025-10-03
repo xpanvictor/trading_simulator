@@ -16,4 +16,9 @@ namespace tradeapp
     public:
         explicit OrderNotFoundError(const string &msg) : TradeError{"OrderNotFoundError: " + msg} {}
     };
+    class InvalidOrderError : public TradeError
+    {
+    public:
+        explicit InvalidOrderError(const string &msg) : TradeError{"InvalidOrderError: " + msg} {}
+    };
 } // namespace tradeapp

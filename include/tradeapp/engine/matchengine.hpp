@@ -11,10 +11,10 @@ class MatchEngine
 {
 private:
     std::unique_ptr<OrderBook> orderbook;
-    std::shared_ptr<Logger> logger; // todo: system provides
+    Logger &logger; // todo: system provides
 
 public:
-    MatchEngine();
+    MatchEngine(Logger &l);
     /// @brief  creates & matches order
     /// @param ot
     /// @param userId

@@ -2,7 +2,10 @@
 #include "tradeapp/engine/system.hpp"
 using namespace std;
 
-MatchEngine::MatchEngine() : orderbook{make_unique<OrderBook>()} {}
+MatchEngine::MatchEngine(Logger &lg)
+    : logger{lg}, orderbook{make_unique<OrderBook>()}
+{
+}
 
 // placeOrder
 // creates a new order in the book
@@ -14,25 +17,24 @@ Order MatchEngine::placeOrder(
     long quantity,
     long price)
 {
-    long orderNewCounter = orderbook->incrementOrderCounter();
+    long orderNewCounter = 1;
     Order userOrder{orderNewCounter, userId, price, quantity, ot};
     // include order
-    orderbook->addOrder(userOrder);
+    // orderbook->addOrder(userOrder);
 
-    auto matchedOrder = orderbook->findMatch(userOrder.id);
-    if (auto match = orderbook->findMatch(userOrder.id))
-    {
-        Order &matchedOrder = match->get();
-        // create trade
-        long tradeNewCounter = orderbook->incrementTradeCounter();
-        Trade generatedTrade = tradeappcore::createTrade(tradeNewCounter, userOrder, matchedOrder);
-        orderbook->makeTrade(generatedTrade);
-        // remove orders
-        orderbook->removeOrders({userOrder.id, matchedOrder.id});
-        // pass to persistence
-    }
+    // auto matchedOrder = orderbook->findMatch(userOrder.id);
+    // if (auto match = orderbook->findMatch(userOrder.id))
+    // {
+    //     Order &matchedOrder = match->get();
+    //     // create trade
+    //     long tradeNewCounter = orderbook->incrementTradeCounter();
+    //     Trade generatedTrade = tradeappcore::createTrade(tradeNewCounter, userOrder, matchedOrder);
+    //     orderbook->makeTrade(generatedTrade);
+    //     // remove orders
+    //     orderbook->removeOrders({userOrder.id, matchedOrder.id});
+    //     // pass to persistence
+    // }
     tradeapp::OrderCreatedEvent orderCreatedEv(userOrder);
-    logger->logEvent(orderCreatedEv);
-
-    return userOrder; // Add missing return statement
+    logger.logEvent(orderCreatedEv);
+    return userOrder;
 }

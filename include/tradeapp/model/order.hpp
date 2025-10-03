@@ -18,6 +18,7 @@ public:
     long getPrice();
     long getQuantity();
 
-    std::string toString() const &;
+    std::string toString() const & { return "order_id: " + std::to_string(id); };
     friend std::ostream &operator<<(std::ostream &os, const Order &order);
+    bool operator==(const Order &secondOrder);
 };
