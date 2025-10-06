@@ -23,10 +23,17 @@ Order::Order(
 
 long Order::getPrice() const { return price; }
 long Order::getQuantity() const { return quantity; }
+bool Order::getResolvedState() { return resolved; }
 
 bool Order::operator==(const Order &secondOrder)
 {
     return id == secondOrder.id;
+}
+
+bool Order::resolveOrder(bool isResolved)
+{
+    resolved = isResolved;
+    return resolved;
 }
 
 // Implement the stream operator

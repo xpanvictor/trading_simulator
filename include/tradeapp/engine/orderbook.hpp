@@ -40,10 +40,11 @@ public:
     void addOrder(const Order &order);
     // throws if no match
     std::optional<std::reference_wrapper<Order>> findMatch(long orderId);
-    void popOrders();
+    // return (sellOr, buyOr)
+    std::pair<Order &, Order &> peekOrders();
 
     /// trade system
-    /// Pops orders from book
+    /// Ensures resolution by popping resolved & modifying balance
     Trade makeTrade(const Trade &trade);
     long incrementTradeCounter();
 

@@ -12,6 +12,7 @@ private:
     long quantity;
     long id;
     int timestamp;
+    bool resolved = false;
 
 public:
     long traderId;
@@ -21,10 +22,12 @@ public:
     // Getter methods for immutable-like access
     long getPrice() const;
     long getQuantity() const;
+    bool getResolvedState();
     long getId() const { return id; }
     int getTimestamp() const { return timestamp; }
     EOrderType getOrderType() const { return orderType; }
 
+    bool resolveOrder(bool isResolved);
     std::string toString() const & { return "order_id: " + std::to_string(id); };
     friend std::ostream &operator<<(std::ostream &os, const Order &order);
     bool operator==(const Order &secondOrder);

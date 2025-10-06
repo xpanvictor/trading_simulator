@@ -1,27 +1,24 @@
 #include "tradeapp/engine/system.hpp"
 #include "tradeapp/utils/time.hpp"
 
-TradeCreationRemnant tradeappcore::createTrade(long tradeId, const Order &sellOrder, const Order &buyOrder)
+Trade tradeappcore::createTrade(long tradeId, const Order &orderA, const Order &orderB)
 {
-    long sellQuantityDelta = sellOrder.getQuantity() - buyOrder.getQuantity();
+    if (orderA.orderType == orderB.orderType)
+    {
+        throw tradeapp::TradeError("trade orders are of same type");
+    }
+    long sellQuantityDelta = orderA.getQuantity() - orderB.getQuantity();
     int timestamp = tradeapp::fetchCurrTime();
+    const Order &sellOrder = orderA.orderType == EOrderType::SELL ? orderA : orderB;
 
     Trade trade{
         tradeId,
         timestamp,
-        sellOrder.traderId,
-        buyOrder.traderId,
+        orderA.traderId,
+        orderB.traderId,
         sellOrder.getPrice(),
-        min(sellOrder.getQuantity(), buyOrder.getQuantity())};
+        min(orderA.getQuantity(), orderB.getQuantity())};
 
-    if (sellQuantityDelta == 0)
-    {
-        return TradeCreationRemnant{
-            trade,
-            newOrderRef : nullopt
-        };
-    }
-
-    bool isSellRemnant = sellQuantityDelta > 0;
-    // todo
+    return trade;
+    // Order book can handle the rest
 }

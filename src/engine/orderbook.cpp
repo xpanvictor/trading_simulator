@@ -41,14 +41,20 @@ optional<reference_wrapper<vector<Order>::iterator>> OrderBook::findOrder(vector
     return ref(it);
 }
 
-void OrderBook::popOrders()
+std::pair<Order &, Order &> OrderBook::peekOrders()
 {
-    buyOrders.pop();
-    sellOrders.pop();
+    return {sellOrders.top(), buyOrders.top()};
 }
 
+/// @brief handle orders, trade & balances
+/// @param trade
+/// @return
 Trade OrderBook::makeTrade(const Trade &trade)
 {
+    auto [sellOrder, buyOrder] = peekOrders();
+    if (int sellQtyDelta = trade.quantity - sellOrder.getQuantity())
+    {
+    }
     recentTrades.push_back(trade);
     return trade;
 }

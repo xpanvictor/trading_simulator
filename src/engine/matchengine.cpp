@@ -29,11 +29,9 @@ Order MatchEngine::placeOrder(
         Order &matchedOrder = match->get();
         // create trade
         long tradeNewCounter = orderbook->incrementTradeCounter();
-        TradeCreationRemnant generatedTrade = tradeappcore::createTrade(tradeNewCounter, userOrder, matchedOrder);
-        orderbook->makeTrade(generatedTrade.trade);
-        logger.logEvent(tradeapp::TradeCreatedEvent(generatedTrade.trade));
-        // remove orders
-        orderbook->popOrders();
+        Trade generatedTrade = tradeappcore::createTrade(tradeNewCounter, userOrder, matchedOrder);
+        orderbook->makeTrade(generatedTrade);
+        logger.logEvent(tradeapp::TradeCreatedEvent(generatedTrade));
         // pass to persistence
     }
     return userOrder;
